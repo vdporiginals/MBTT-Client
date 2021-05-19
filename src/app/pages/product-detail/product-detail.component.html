@@ -67,7 +67,7 @@
     <div class="card_rating flex-col m-5">
         <app-card [cardTitle]="'Đánh giá sản phẩm'"
                   [cardIcon]="'assets/Document.svg'"
-                  [cardRouteLink]="''">
+                  [cardRouteLink]="'a'">
             <ng-template #detailCard>
                 <div class="overall">
                     <span class="text-black text-opacity-50">3.2</span>
@@ -78,7 +78,37 @@
                          alt="">
                     <span>1250 lượt đánh giá</span>
                 </div>
+                <app-comments></app-comments>
             </ng-template>
         </app-card>
+    </div>
+    <div class="card_rating flex-col m-5">
+        <app-card [cardTitle]="'Hỏi đáp &bull; ' + numbOfQuestion + ' câu hỏi'"
+                  [cardIcon]="'assets/Chat.svg'"
+                  [cardRouteLink]="'a'">
+            <ng-template #detailCard>
+
+            </ng-template>
+        </app-card>
+    </div>
+    <div class="list_carousel flex-col m-5">
+        <div class="flex items-center">
+            <img src="assets/Folder.svg">
+            <span class="flex-1 pl-3 text-base font-semibold">abc</span>
+            <img [routerLink]="''"
+                 src="assets/Dropdown.svg"
+                 alt="">
+        </div>
+        <app-product-list-carousel></app-product-list-carousel>
+    </div>
+    <div class="list_carousel flex-col m-5">
+        <div class="flex items-center">
+            <img src="assets/Folder.svg">
+            <span class="flex-1 pl-3 text-base font-semibold">abc</span>
+            <img [routerLink]="''"
+                 src="assets/Dropdown.svg"
+                 alt="">
+        </div>
+        <app-product-list-carousel></app-product-list-carousel>
     </div>
 </div>

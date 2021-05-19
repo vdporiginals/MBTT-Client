@@ -1,8 +1,25 @@
 <div class="comment-wrap">
     <img src="avatar"
          alt="">
-    <textarea cdkTextareaAutosize
-              #autosize="cdkTextareaAutosize"
-              cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5"></textarea>
+    <div class="content_area">
+        <textarea cdkTextareaAutosize
+                  [readonly]="true"
+                  [ngModel]="'abc'"
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"></textarea>
+        <div class="gallery">
+            <img *ngFor="let item of [1,2,3]"
+                 src="assets/comment.png"
+                 alt="">
+        </div>
+        <div class="bottom_comment">
+            <bar-rating class="items-end"
+                        [(rate)]="product"
+                        [max]="5"></bar-rating>
+
+            <span class="date">21/12/1221</span>
+
+        </div>
+    </div>
 </div>

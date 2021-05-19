@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
+  numbOfQuestion = 1;
   overall = 5;
   product: any = {
     Title: 'Test',
@@ -59,7 +60,7 @@ export class ProductDetailComponent implements OnInit {
     },
     {
       title: 'Doanh nghiệp sở hữu',
-      icon: 'assets/Document.svg',
+      icon: 'assets/Work.svg',
       routeLink: '',
       data: [
         {
