@@ -1,0 +1,6 @@
+<swiper [slidesPerView]="1">
+    <ng-template swiperSlide
+                 *ngFor="let img of imgList">
+        <img [src]="img" />
+    </ng-template>
+</swiper>

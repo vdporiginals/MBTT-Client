@@ -1,0 +1,29 @@
+<div class="flex justify-between items-center p-5 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-3xl">
+    <img [src]="iconPath">
+
+    <div class="flex px-3 justify-around items-center">
+        <svg width="7"
+             height="6"
+             viewBox="0 0 7 6"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+            <circle cx="3.53638"
+                    cy="3.07848"
+                    r="2.89429"
+                    fill="white" />
+        </svg>
+        <p class="font-semibold text-white" [style.margin-left.px]="10">{{statusContent}}</p>
+    </div>
+    <svg width="30"
+         height="30"
+         viewBox="0 0 20 21"
+         fill="none"
+         xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M10 0.0784912C15.514 0.0784912 20 4.56449 20 10.0785C20 15.5925 15.514 20.0785 10 20.0785C4.486 20.0785 0 15.5925 0 10.0785C0 4.56449 4.486 0.0784912 10 0.0784912ZM10 1.57849C5.313 1.57849 1.5 5.39149 1.5 10.0785C1.5 14.7655 5.313 18.5785 10 18.5785C14.687 18.5785 18.5 14.7655 18.5 10.0785C18.5 5.39149 14.687 1.57849 10 1.57849ZM10.0039 12.8744C10.5569 12.8744 11.0039 13.3214 11.0039 13.8744C11.0039 14.4274 10.5569 14.8744 10.0039 14.8744C9.4509 14.8744 8.9989 14.4274 8.9989 13.8744C8.9989 13.3214 9.4419 12.8744 9.9939 12.8744H10.0039ZM9.9941 5.53249C10.4081 5.53249 10.7441 5.86849 10.7441 6.28249V10.7015C10.7441 11.1155 10.4081 11.4515 9.9941 11.4515C9.5801 11.4515 9.2441 11.1155 9.2441 10.7015V6.28249C9.2441 5.86849 9.5801 5.53249 9.9941 5.53249Z"
+              fill="white" />
+    </svg>
+
+    <ng-container *ngTemplateOutlet="detail"></ng-container>
+</div>

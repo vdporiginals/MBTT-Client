@@ -1,0 +1,11 @@
+<div class="p-5 bg-gray-50 rounded-lg">
+      <div class="flex items-center">
+            <img [src]="cardIcon">
+            <span class="flex-1 pl-3 text-base font-semibold">{{cardTitle}}</span>
+            <img *ngIf="cardRouteLink"
+                 [routerLink]="cardRouteLink"
+                 src="assets/Dropdown.svg"
+                 alt="">
+      </div>
+      <ng-container *ngTemplateOutlet="detail"></ng-container>
+</div>

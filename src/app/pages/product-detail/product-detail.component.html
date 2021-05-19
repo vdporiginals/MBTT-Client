@@ -1,0 +1,84 @@
+<div class="wrapper flex-col">
+    <div class="header flex flex-col">
+        <div class="header_carousel flex-none">
+            <app-product-carousel [imgList]="['assets/anh.png','assets/anh.png','assets/anh.png','assets/anh.png']">
+            </app-product-carousel>
+        </div>
+        <div class="text-left text-2xl font-bold pl-3">
+            <h3>{{product.Title}}</h3>
+        </div>
+        <div class="header_bottom flex-1 justify-between text-xl text-black text-opacity-50  pl-3">
+            <p>{{product.American}}</p>
+
+        </div>
+        <div class="flex pb-5 justify-between pl-3 pr-3 items-end">
+            <bar-rating class="items-end"
+                        [(rate)]="product.Rating"
+                        [max]="5"></bar-rating>
+            <p class="text-lg font-semibold">{{product.price | currency:'VND':'symbol' }}</p>
+        </div>
+
+    </div>
+    <div class="card_status">
+        <app-card-status [statusContent]="'Chưa được kiểm chứng, xác thực với GS1 Vietnam'"
+                         [iconPath]="'assets/subtract.svg'">
+            <ng-template #detail>
+
+            </ng-template>
+        </app-card-status>
+        <div class="p-10 flex justify-around items-center">
+            <div class="left flex-1 text-center">
+                <h3 class="text-3xl text-black font-bold">03</h3>
+                <p class="text-lg text-black text-opacity-50">Chứng chỉ, chứng nhận</p>
+            </div>
+            <div class="right">
+                <img src="assets/group_cert.png">
+            </div>
+        </div>
+    </div>
+    <div class="flex-col card m-5"
+         *ngFor="let item of listCard">
+        <app-card [cardTitle]="item.title"
+                  [cardIcon]="item.icon"
+                  [cardRouteLink]="item.routeLink">
+            <ng-template #detailCard>
+                <div class="flex mt-4 justify-between"
+                     *ngFor="let data of item.data">
+                    <p class="flex-2 text-black text-opacity-50">{{data.Label}}</p>
+                    <div class="flex-1 font-medium self-end text-right">
+                        <img [style.float]="'right'"
+                             [src]="data[data.key]"
+                             *ngIf="data?.type === 'img' else text">
+                        <ng-container *ngIf="data?.type == 'btn'">
+                            <button class="btn_base text-black font-medium"
+                                    *ngFor="let btn of data.btnArray"
+                                    (click)="onBtnCardClick(btn.link)">{{btn.title}}</button>
+                        </ng-container>
+                        <ng-template #text>
+                            <p class="whitespace-pre-wrap"> {{data[data.key]}}</p>
+                        </ng-template>
+                    </div>
+                </div>
+
+            </ng-template>
+        </app-card>
+    </div>
+
+    <div class="card_rating flex-col m-5">
+        <app-card [cardTitle]="'Đánh giá sản phẩm'"
+                  [cardIcon]="'assets/Document.svg'"
+                  [cardRouteLink]="''">
+            <ng-template #detailCard>
+                <div class="overall">
+                    <span class="text-black text-opacity-50">3.2</span>
+                    <bar-rating class="items-end"
+                                [(rate)]="product.Rating"
+                                [max]="5"></bar-rating>
+                    <img src="assets/ellipse.svg"
+                         alt="">
+                    <span>1250 lượt đánh giá</span>
+                </div>
+            </ng-template>
+        </app-card>
+    </div>
+</div>

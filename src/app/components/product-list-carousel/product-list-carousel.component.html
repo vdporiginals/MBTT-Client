@@ -1,0 +1,7 @@
+<swiper [slidesPerView]="3">
+    <ng-template swiperSlide *ngFor="img of producList">
+        <img [src]="img.MediaURL" />
+        <h3>{{img.ProductName}}</h3>
+        <bar-rating [(rate)]="img.Rating" [max]="5"></bar-rating>
+    </ng-template>
+</swiper>
