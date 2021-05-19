@@ -7,6 +7,7 @@ import { CardModule } from 'src/app/components/card/card.component';
 import { CommentsModule } from 'src/app/components/comments/comments.component';
 import { ProductCarouselModule } from 'src/app/components/product-carousel/product-carousel.component';
 import { ProductListCarouselModule } from 'src/app/components/product-list-carousel/product-list-carousel.component';
+import { QuestionsModule } from 'src/app/components/questions/questions.component';
 import { ProductDetailComponent } from './product-detail.component';
 import { productDetailRoutes } from './product-detail.routes';
 
@@ -20,6 +21,7 @@ import { productDetailRoutes } from './product-detail.routes';
     CardModule,
     CommentsModule,
     BarRatingModule,
+    QuestionsModule,
     CardStatusModule,
   ],
 })

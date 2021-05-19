@@ -1,0 +1,24 @@
+<div class="questions_main flex">
+  <div class="m-1 w-12 h-12 overflow-hidden rounded-full flex items-center justify-center">
+    <img class="object-cover w-full"
+         src="assets/anh.png">
+  </div>
+  <div class="content_area">
+    <textarea cdkTextareaAutosize
+              class="w-full text-base p-1 rounded-md  font-medium"
+              [readonly]="true"
+              [ngModel]="'Sản phẩm giá baoSản phẩm tuyệt vời! Uống ngon nhiêu?'"
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="7"></textarea>
+    <span class="date text-black font-semibold text-sm text-opacity-50 float-right">21/12/1221</span>
+
+    <textarea cdkTextareaAutosize
+              class="reply w-full text-base p-1 rounded-md font-medium"
+              [readonly]="true"
+              [ngModel]="'Sản phẩm tuyệt vời! Uống ngon, vị '"
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="7"></textarea>
+  </div>
+</div>

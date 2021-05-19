@@ -2,8 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "~swiper/swiper-bundle";
-@import "~ngx-bar-rating/themes/br-default-theme"; /* You can add global styles to this file, and also import other style files */
-
+@import "~ngx-bar-rating/themes/br-stars-theme";
 .btn_base {
   border: 1px solid #000;
   border-radius: 30px;
@@ -11,11 +10,15 @@
   padding: 6px;
 }
 .br {
-  margin: -8px 0px 8px 0 !important;
+  margin: 2px 0px 8px 0 !important;
   position: relative;
 }
 
 .swiper-slide {
   justify-content: center;
   display: flex;
+}
+.br-unit {
+  width: 14px !important;
+  height: 14px !important;
 }
