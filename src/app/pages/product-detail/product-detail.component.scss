@@ -2,4 +2,38 @@
   overflow: auto;
   height: 100%;
   padding: 5px;
+
+  @media (min-width: 1024px) {
+    padding: 0 30vw;
+  }
+
+  @media (min-width: 767px) and (max-width: 1023px) {
+    padding: 0 20vw;
+  }
+
+  @media (min-width: 640px) and (max-width: 766px) {
+    padding: 0 10vw;
+  }
+}
+
+.btn_wrap {
+  background-color: #fff;
+  position: fixed;
+  left: 50%;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  z-index: 500;
+  height: 100px;
+  transform: translateX(-50%);
+}
+.button_fix {
+  position: fixed;
+  left: 50%;
+  bottom: 23px;
+  z-index: 501;
+  text-align: center;
+  transform: translateX(-50%);
+  width: 307px;
+  height: 46px;
 }

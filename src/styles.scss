@@ -4,6 +4,9 @@
 @import "~swiper/swiper";
 @import "~swiper/components/pagination/pagination";
 @import "~ngx-bar-rating/themes/br-stars-theme";
+body {
+  font-family: Montserrat, sans-serif;
+}
 .btn_base {
   border: 1px solid #000;
   border-radius: 30px;
@@ -36,4 +39,12 @@
   height: 7px;
   border-radius: 10px;
   background: black;
+}
+
+textarea {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  resize: none;
+  padding: 2px 1px !important;
 }

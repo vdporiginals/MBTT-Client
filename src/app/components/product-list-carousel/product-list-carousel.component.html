@@ -1,9 +1,11 @@
-<swiper [slidesPerView]="2" class="question_list">
+<swiper [slidesPerView]="2"
+        class="question_list">
   <ng-template swiperSlide
                *ngFor="let img of producList">
     <img [src]="img?.MediaURL" />
     <h3 class="text-black text-base font-semibold">{{img?.ProductName}}</h3>
-    <bar-rating [theme]="'stars'"
+    <bar-rating [readOnly]="true"
+                [theme]="'stars'"
                 [(rate)]="img.Rating"
                 [max]="5"></bar-rating>
   </ng-template>
