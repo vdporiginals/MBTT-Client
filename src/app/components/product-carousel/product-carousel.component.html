@@ -1,6 +1,13 @@
-<swiper [slidesPerView]="1">
+<swiper [slidesPerView]="1"
+        [centeredSlides]="true"[pagination]="{
+            dynamicBullets: true
+          }">
     <ng-template swiperSlide
-                 *ngFor="let img of imgList">
+                 *ngFor="
+        let
+        img
+        of
+        imgList">
         <img [src]="img" />
     </ng-template>
 </swiper>

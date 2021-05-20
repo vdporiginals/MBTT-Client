@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  NgModule,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { SwiperModule } from 'swiper/angular';
 
@@ -18,7 +25,7 @@ export class ProductListCarouselComponent implements OnInit {
 
 @NgModule({
   declarations: [ProductListCarouselComponent],
-  imports: [SwiperModule, BarRatingModule, CommonModule],
+  imports: [SwiperModule, BarRatingModule, FormsModule, CommonModule],
   exports: [ProductListCarouselComponent],
 })
 export class ProductListCarouselModule {}

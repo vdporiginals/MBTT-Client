@@ -12,7 +12,8 @@
 
     </div>
     <div class="flex pb-5 justify-between pl-3 pr-3 items-end">
-      <bar-rating  [theme]="'stars'" class="items-end"
+      <bar-rating [theme]="'stars'"
+                  class="items-end"
                   [(rate)]="product.Rating"
                   [max]="5"></bar-rating>
       <p class="text-lg font-semibold">{{product.price | currency:'VND':'symbol' }}</p>
@@ -71,7 +72,8 @@
       <ng-template #detailCard>
         <div class="overall pt-3 flex justify-around items center">
           <span class="text-black font-semibold text-sm text-opacity-50">3.2</span>
-          <bar-rating  [theme]="'stars'" class="items-end"
+          <bar-rating [theme]="'stars'"
+                      class="items-end"
                       [(rate)]="product.Rating"
                       [max]="5"></bar-rating>
           <img src="assets/ellipse.svg"
@@ -100,21 +102,60 @@
   <div class="list_carousel flex-col m-5">
     <div class="flex items-center">
       <img src="assets/Folder.svg">
-      <span class="flex-1 pl-3 text-base font-semibold">abc</span>
+      <span class="flex-1 pl-3 text-base font-semibold">Sản phẩm khác của doanh nghiệp</span>
       <img [routerLink]="''"
            src="assets/Dropdown.svg"
            alt="">
     </div>
-    <app-product-list-carousel></app-product-list-carousel>
+    <app-product-list-carousel [producList]="[
+    {
+      MediaURL:'assets/anh.png',
+    ProductName: 'Sparkling water gan 500ml',
+    Rating: 3.4
+  },
+    {
+      MediaURL:'assets/anh.png',
+    ProductName: 'Sparkling water gan 500ml',
+    Rating: 3.4},
+    {MediaURL:'assets/anh.png',
+    ProductName: 'Sparkling water gan 500ml',
+    Rating: 3.4},
+    {
+      MediaURL:'assets/anh.png',
+    ProductName: 'Sparkling water gan 500ml',
+    Rating: 3.4},
+    {MediaURL:'assets/anh.png',
+    ProductName: 'Sparkling water gan 500ml',
+    Rating: 3.4}]"></app-product-list-carousel>
   </div>
   <div class="list_carousel flex-col m-5">
     <div class="flex items-center">
       <img src="assets/Folder.svg">
-      <span class="flex-1 pl-3 text-base font-semibold">abc</span>
+      <span class="flex-1 pl-3 text-base font-semibold">Sản phẩm liên quan</span>
       <img [routerLink]="''"
            src="assets/Dropdown.svg"
            alt="">
     </div>
-    <app-product-list-carousel></app-product-list-carousel>
+    <app-product-list-carousel [producList]="[
+      {
+        MediaURL:'assets/anh.png',
+      ProductName: 'Sparkling water gan 500ml',
+      Rating: 3.4
+    },
+      {
+        MediaURL:'assets/anh.png',
+      ProductName: 'Sparkling water gan 500ml',
+      Rating: 3.4},
+      {MediaURL:'assets/anh.png',
+      ProductName: 'Sparkling water gan 500ml',
+      Rating: 3.4},
+      {
+        MediaURL:'assets/anh.png',
+      ProductName: 'Sparkling water gan 500ml',
+      Rating: 3.4},
+      {MediaURL:'assets/anh.png',
+      ProductName: 'Sparkling water gan 500ml',
+      Rating: 3.4}]">
+    </app-product-list-carousel>
   </div>
 </div>

@@ -1,7 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import "~swiper/swiper-bundle";
+@import "~swiper/swiper";
+@import "~swiper/components/pagination/pagination";
 @import "~ngx-bar-rating/themes/br-stars-theme";
 .btn_base {
   border: 1px solid #000;
@@ -21,4 +22,18 @@
 .br-unit {
   width: 14px !important;
   height: 14px !important;
+}
+
+.question_list {
+  .swiper-wrapper {
+    .swiper-slide {
+      display: block !important;
+    }
+  }
+}
+.swiper-pagination-bullet-active-main {
+  width: 15px;
+  height: 7px;
+  border-radius: 10px;
+  background: black;
 }

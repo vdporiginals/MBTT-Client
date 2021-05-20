@@ -7,6 +7,31 @@ import {
   OnInit,
 } from '@angular/core';
 import { SwiperModule } from 'swiper/angular';
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Virtual,
+  Zoom,
+  Autoplay,
+  Thumbs,
+  Controller,
+} from 'swiper/core';
+
+// install Swiper components
+SwiperCore.use([
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Virtual,
+  Zoom,
+  Autoplay,
+  Thumbs,
+  Controller,
+]);
+
 @Component({
   selector: 'app-product-carousel',
   templateUrl: './product-carousel.component.html',
