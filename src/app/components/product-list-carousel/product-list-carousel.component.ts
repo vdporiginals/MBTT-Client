@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { SwiperModule } from 'swiper/angular';
 
@@ -19,9 +19,14 @@ import { SwiperModule } from 'swiper/angular';
 })
 export class ProductListCarouselComponent implements OnInit {
   @Input() producList: any[];
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  routeTo(ev) {
+    // window.location.href
+    this.router.navigate(['/', ev]);
+  }
 }
 
 @NgModule({

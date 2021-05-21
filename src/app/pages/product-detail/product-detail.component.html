@@ -117,33 +117,7 @@
            src="assets/Dropdown.svg"
            alt="">
     </div>
-    <app-product-list-carousel [producList]="[
-    {
-      MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4
-    },
-    {
-      MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4
-    },
-    {
-      MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4
-    },
-    {
-      MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4
-    },
-    {
-      MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4
-    }
-   ]"></app-product-list-carousel>
+    <app-product-list-carousel [producList]="relatedProduct$ | async"></app-product-list-carousel>
   </div>
   <div [style.padding-bottom.px]="54"
        class="list_carousel flex-col m-5">
@@ -154,26 +128,7 @@
            src="assets/Dropdown.svg"
            alt="">
     </div>
-    <app-product-list-carousel [producList]="[
-      {
-        MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4
-    },
-      {
-        MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4},
-      {MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4},
-      {
-        MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4},
-      {MediaURL:'assets/anh.png',
-      ProductName: 'Sparkling water gan 500ml',
-      Rating: 3.4}]">
+    <app-product-list-carousel [producList]="relatedProduct$ | async">
     </app-product-list-carousel>
   </div>
 </div>

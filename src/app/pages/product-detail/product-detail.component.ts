@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseResponse } from '@consult-indochina/base';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { concatMap, takeUntil } from 'rxjs/operators';
+import { concatMap, map, takeUntil, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/data-access/services/api.service';
 import {
   AnswerQuestion,
@@ -11,6 +11,7 @@ import {
   Product,
   Question,
   RatingProduct,
+  RelatedProduct,
 } from 'src/app/models/product.interface';
 
 @Component({
@@ -129,6 +130,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ratingProduct$: Observable<RatingProduct[]>;
   answerProduct$: Observable<AnswerQuestion>;
   certProduct$: Observable<{ MediaURL: string }[]>;
+  relatedProduct$: Observable<RelatedProduct>;
   overallRating = {
     rate: 0,
     number: 0,
@@ -139,22 +141,42 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private apiService: ApiService
   ) {
     this.currentId = this.route.params;
+    this.route.params.subscribe((res) => {
+      if (res) {
+        this.initProduct(res.id);
+      }
+    });
   }
 
-  ngOnInit(): void {
-    this.currentId
+  ngOnInit(): void {}
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+  }
+  initProduct(id) {
+    forkJoin([
+      this.detailProduct(id),
+      this.companyProduct(id),
+      this.getMediaProduct(id),
+      this.getQuestionProduct(id),
+      this.getRatingProduct(id),
+      this.getListCert(id),
+    ])
       .pipe(
-        concatMap((res) =>
-          forkJoin([
-            this.detailProduct(res.id),
-            this.companyProduct(res.id),
-            this.getMediaProduct(res.id),
-            this.getQuestionProduct(res.id),
-            this.getRatingProduct(res.id),
-            this.getListCert(res.id),
-          ])
-        ),
-        takeUntil(this.destroy$)
+        tap(
+          ([
+            detailProduct,
+            companyProduct,
+            mediaProduct,
+            questionProduct,
+            ratingProduct,
+            certProduct,
+          ]) => {
+            this.relatedProduct$ = this.getRelateProduct(
+              companyProduct.payload.CompanyId
+            ).pipe(map((a) => a.payload));
+          }
+        )
       )
       .subscribe(
         ([
@@ -272,11 +294,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         () => console.log('complete')
       );
   }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-  }
-
   detailProduct(productId): Observable<BaseResponse<Product>> {
     return this.apiService.list({
       productId,
@@ -335,6 +352,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   getListCert(productId): Observable<BaseResponse<{ MediaURL: string }[]>> {
     return this.apiService.detail('certification/media', {
       productId,
+    });
+  }
+
+  getRelateProduct(companyId): Observable<BaseResponse<RelatedProduct>> {
+    return this.apiService.detail('company/related-product', {
+      companyId,
+      pageNumber: 1,
+      pageSize: 6,
     });
   }
 

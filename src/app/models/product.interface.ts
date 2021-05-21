@@ -49,3 +49,13 @@ export interface RatingProduct {
   CreatedBy: number;
   CreatedOn: number;
 }
+
+export interface RelatedProduct {
+  ProductId: number;
+  ProductCode: string;
+  Name: string;
+  Source: string;
+  Price: number;
+  RatingAVG: number;
+  MediaURL: string;
+}
