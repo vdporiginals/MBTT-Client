@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,16 +14,18 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardStatusComponent implements OnInit {
-  @Input() statusContent;
+  @Input() statusContent: number;
   @Input() iconPath;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.statusContent);
+  }
 }
 
 @NgModule({
   declarations: [CardStatusComponent],
-  imports: [],
+  imports: [CommonModule],
   exports: [CardStatusComponent],
 })
 export class CardStatusModule {}

@@ -10,7 +10,19 @@ module.exports = {
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    colors: {
+      lime: {
+        darkest: "#71A559",
+        dark: "#9DB86C",
+      },
+      yellow: {
+        darkest: "#FFB26B",
+        dark: "#D6A324",
+      },
+      white: {
+        DEFAULT: '#fff'
+      }
+    },
   },
   variants: {
     extend: {},

@@ -39,7 +39,7 @@ SwiperCore.use([
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCarouselComponent implements OnInit {
-  @Input() imgList: string[];
+  @Input() imgList: { MediaURL: string }[];
   constructor() {}
 
   ngOnInit(): void {}

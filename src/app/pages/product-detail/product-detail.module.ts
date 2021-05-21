@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -24,5 +24,6 @@ import { productDetailRoutes } from './product-detail.routes';
     QuestionsModule,
     CardStatusModule,
   ],
+  providers: [CurrencyPipe]
 })
 export class ProductDetailModule {}

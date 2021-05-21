@@ -1,5 +1,6 @@
 <swiper [slidesPerView]="1"
-        [centeredSlides]="true"[pagination]="{
+        [centeredSlides]="true"
+        [pagination]="{
             dynamicBullets: true
           }">
     <ng-template swiperSlide
@@ -8,6 +9,6 @@
         img
         of
         imgList">
-        <img [src]="img" />
+        <img [src]="img.MediaURL" />
     </ng-template>
 </swiper>

@@ -4,6 +4,7 @@
 @import "~swiper/swiper";
 @import "~swiper/components/pagination/pagination";
 @import "~ngx-bar-rating/themes/br-stars-theme";
+@import "~ngx-bar-rating/themes/br-fontawesome-o-theme";
 body {
   font-family: Montserrat, sans-serif;
 }
@@ -22,6 +23,7 @@ body {
   justify-content: center;
   display: flex;
 }
+
 .br-unit {
   width: 14px !important;
   height: 14px !important;
@@ -47,4 +49,32 @@ textarea {
   box-sizing: border-box;
   resize: none;
   padding: 2px 1px !important;
+}
+
+.text-white {
+  color: #fff;
+}
+.text-black {
+  color: #000;
+}
+
+.bg-black {
+  background-color: #000;
+}
+.br-fontawesome-o .br-selected:after {
+  color: #ffac30 !important;
+}
+.br-fontawesome-o .br-fraction:after {
+  color: #ffac30 !important;
+}
+
+button,
+input {
+  outline: none;
+}
+*:focus {
+  outline: 0 !important;
+}
+.bg-gray-50 {
+  background-color: #f7f7f7;
 }

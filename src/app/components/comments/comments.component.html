@@ -2,29 +2,29 @@
   <div class="m-1 w-12 h-12 overflow-hidden rounded-full flex items-center justify-center">
 
     <img class="object-cover w-full"
-         src="assets/anh.png">
+         src="assets/avatardefault_92824.png">
   </div>
   <div class="content_area w-full">
     <textarea cdkTextareaAutosize
               class="w-full text-base p-1 rounded-md  font-medium"
               [readonly]="true"
-              [ngModel]="'Sản phẩm tuyệt vời! Uống ngon, vị mới lạ, sẽ ủng hộ thêm'"
+              [ngModel]="rating.Content"
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1"
               cdkAutosizeMaxRows="7"></textarea>
     <div class="gallery grid grid-cols-3 gap-4">
       <img [style.max-width.px]="69"
            *ngFor="let item of [1,2,3]"
-           src="assets/comment.png"
-           alt="">
+           src="assets/comment.png">
     </div>
     <div class="bottom_comment mb-4 grid grid-cols-2">
       <bar-rating [theme]="'stars'"
                   class="items-end"
-                  [(rate)]="product"
+                  [(rate)]="rating.Value"
                   [max]="5"></bar-rating>
 
-      <span class="date text-black font-semibold text-sm text-opacity-50 text-right">21/12/1221</span>
+      <span class="date text-black font-semibold text-sm text-opacity-50 text-right">{{rating.CreatedOn |
+        date:'dd/MM/yyyy hh:mm'}}</span>
 
     </div>
   </div>
