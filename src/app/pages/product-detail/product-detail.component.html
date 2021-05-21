@@ -25,11 +25,11 @@
       <app-card-status [statusContent]="detailPro.Status"
                        [iconPath]="detailPro.Status == 1 ?'assets/subtract.svg':'assets/Vector.svg'">
       </app-card-status>
-      <div class="p-10 flex justify-around items-center"
+      <div class="p-7 flex justify-around items-center"
            *ngIf="certProduct$ | async as cert">
         <div class="left flex-1 text-center">
           <h3 class="text-3xl text-black font-bold">{{cert.length}}</h3>
-          <p class="text-lg text-black text-opacity-50">Chứng chỉ, chứng nhận</p>
+          <p class="text-md text-black text-opacity-50">Chứng chỉ, chứng nhận</p>
         </div>
         <div class="right">
           <img src="assets/group_cert.png">

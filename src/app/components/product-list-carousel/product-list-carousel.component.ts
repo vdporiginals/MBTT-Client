@@ -7,6 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { SwiperModule } from 'swiper/angular';
 
@@ -25,7 +26,13 @@ export class ProductListCarouselComponent implements OnInit {
 
 @NgModule({
   declarations: [ProductListCarouselComponent],
-  imports: [SwiperModule, BarRatingModule, FormsModule, CommonModule],
+  imports: [
+    SwiperModule,
+    RouterModule,
+    BarRatingModule,
+    FormsModule,
+    CommonModule,
+  ],
   exports: [ProductListCarouselComponent],
 })
 export class ProductListCarouselModule {}
