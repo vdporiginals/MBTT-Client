@@ -49,10 +49,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           Price: 'Ginger Bear',
         },
         {
-          key: 'Bar',
+          key: 'MediaURL',
           Label: 'Mã Vạch:',
           type: 'img',
-          Bar: 'assets/group_cert.png',
+          MediaURL: 'assets/group_cert.png',
         },
         {
           key: 'Detail',
@@ -205,6 +205,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 {
                   key: 'MediaURL',
                   Label: 'Mã Vạch:',
+                  type: 'img',
                   MediaURL: detailProduct.payload.MediaURL,
                 },
                 {

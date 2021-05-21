@@ -48,9 +48,11 @@
           <p class="flex-2 text-black text-opacity-50 mr-2">{{data.Label}}</p>
           <div class="flex-1 font-medium self-end"
                [style.text-align]="data.key !== 'Total' ? 'justify':'right'">
-            <img [style.float]="'right'"
-                 [src]="data[data.key]"
-                 *ngIf="data?.type === 'img' else text">
+            <ng-container *ngIf="data?.type === 'img' else text">
+              <img [style.float]="'right'"
+                   [src]="data[data.key]">
+            </ng-container>
+
             <ng-container *ngIf="data?.type == 'btn'">
               <button class="btn_base text-black font-medium"
                       *ngFor="let btn of data.btnArray"
@@ -85,16 +87,17 @@
 
           <app-comments [rating]="item"></app-comments>
         </ng-container>
+
+        <div class="btn_area  grid grid-cols-3 gap-1">
+          <button class="btn_base  text-black font-medium"
+                  [routerLink]="'/'">Tất cả</button>
+          <button class="btn_base col-span-2 text-black font-medium"
+                  [routerLink]="'/'">Đánh giá</button>
+        </div>
         <!-- <app-comments></app-comments> -->
       </ng-template>
     </app-card>
 
-    <div class="btn_area  grid grid-cols-3 gap-1">
-      <button class="btn_base  text-black font-medium"
-              [routerLink]="'/'">Tất cả</button>
-      <button class="btn_base col-span-2 text-black font-medium"
-              [routerLink]="'/'">Đánh giá</button>
-    </div>
   </div>
   <div class="card_rating flex-col m-5">
     <app-card [cardTitle]="'Hỏi đáp &bull; ' + numbOfQuestion + ' câu hỏi'"
