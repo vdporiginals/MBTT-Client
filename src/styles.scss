@@ -33,6 +33,9 @@ body {
   .swiper-wrapper {
     .swiper-slide {
       display: block !important;
+      img {
+        object-fit: cover;
+      }
     }
   }
 }
@@ -55,6 +58,7 @@ textarea {
   color: #fff;
 }
 .text-black {
+  opacity: var(--tw-text-opacity);
   color: #000;
 }
 
@@ -77,4 +81,31 @@ input {
 }
 .bg-gray-50 {
   background-color: #f7f7f7;
+}
+
+.bar_rating {
+  .br-unit {
+    height: 30px !important;
+    width: 30px !important;
+  }
+}
+
+ngneat-dialog {
+  .ngneat-dialog-backdrop {
+    // backdrop styles
+    .ngneat-dialog-content {
+      // dialog content, where your component/template is placed
+      .ngneat-drag-marker {
+        // draggable marker
+      }
+      .ngneat-close-dialog {
+        display: none;
+        // 'X' icon for closing the dialog
+      }
+      .ngneat-dialog-primary-btn,
+      .ngneat-dialog-secondary-btn {
+        // the default dialogs action buttons
+      }
+    }
+  }
 }

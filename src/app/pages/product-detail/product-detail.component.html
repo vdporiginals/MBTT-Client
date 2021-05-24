@@ -79,9 +79,10 @@
                       class="items-end"
                       [(rate)]="overallRating.rate"
                       [max]="5"></bar-rating>
-          <img src="assets/ellipse.svg"
-               alt="">
-          <span class="text-sm">{{overallRating.number}} lượt đánh giá</span>
+
+          <span class="text-sm flex"><img class="w-1 mr-3"
+                 src="assets/ellipse.svg"
+                 alt="">{{overallRating.number}} lượt đánh giá</span>
         </div>
         <ng-container *ngFor="let item of ratingProduct$ | async">
 
@@ -92,7 +93,7 @@
           <button class="btn_base  text-black font-medium"
                   [routerLink]="'/'">Tất cả</button>
           <button class="btn_base col-span-2 text-black font-medium"
-                  [routerLink]="'/'">Đánh giá</button>
+                  (click)="openRatingModal()">Đánh giá</button>
         </div>
         <!-- <app-comments></app-comments> -->
       </ng-template>
@@ -106,6 +107,13 @@
       <ng-template #detailCard>
         <app-questions [question]="questionProduct$ | async"
                        [reply]="answerProduct$ | async"></app-questions>
+
+        <div class="btn_area  grid grid-cols-3 gap-1">
+          <button class="btn_base  text-black font-medium"
+                  [routerLink]="'/'">Tất cả</button>
+          <button class="btn_base col-span-2 text-black font-medium"
+                  (click)="openQuestionModal()">Đặt câu hỏi</button>
+        </div>
       </ng-template>
     </app-card>
   </div>

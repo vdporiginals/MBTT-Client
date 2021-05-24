@@ -3,7 +3,7 @@
   <ng-template swiperSlide
                *ngFor="let img of producList; let i = index">
     <img [src]="img?.MediaURL"
-         (click)="routeTo(i)" />
+         [routerLink]="['/',img.ProductId]" />
     <h3 class="text-black text-base font-semibold">{{img?.Name}}</h3>
     <bar-rating [readOnly]="true"
                 [theme]="'stars'"

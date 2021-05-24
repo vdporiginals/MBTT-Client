@@ -1,9 +1,13 @@
 import { CurrencyPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseResponse } from '@consult-indochina/base';
+import { DialogService } from '@ngneat/dialog';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { concatMap, map, takeUntil, tap } from 'rxjs/operators';
+import { QuestionModalComponent } from 'src/app/components/question-modal/question-modal.component';
+import { RatingDialogComponent } from 'src/app/components/rating-dialog/rating-dialog.component';
 import { ApiService } from 'src/app/data-access/services/api.service';
 import {
   AnswerQuestion,
@@ -135,7 +139,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     rate: 0,
     number: 0,
   };
+  idParams;
   constructor(
+    private http: HttpClient,
+    private dialog: DialogService,
     private route: ActivatedRoute,
     private currency: CurrencyPipe,
     private apiService: ApiService
@@ -143,6 +150,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.currentId = this.route.params;
     this.route.params.subscribe((res) => {
       if (res) {
+        this.idParams = res.id;
         this.initProduct(res.id);
       }
     });
@@ -153,6 +161,48 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
   }
+  openQuestionModal() {
+    const dialogRef = this.dialog.open(QuestionModalComponent, {
+      // height: '100%',
+      data: {
+        id: this.idParams,
+      },
+    });
+    dialogRef.afterClosed$.subscribe(() => {
+      this.getQuestionProduct(this.idParams).subscribe((res) => {
+        this.questionProduct$ = of(res[0]);
+      });
+      this.detailProduct(this.idParams).subscribe((res) => {
+        this.detailProduct$ = of(res.payload);
+        this.overallRating = {
+          rate: res.payload.RatingAVG,
+          number: res.payload.RatingNumber,
+        };
+      });
+    });
+  }
+
+  openRatingModal() {
+    const dialogRef = this.dialog.open(RatingDialogComponent, {
+      // height: '100%',
+      data: {
+        id: this.idParams,
+      },
+    });
+    dialogRef.afterClosed$.subscribe(() => {
+      this.getRatingProduct(this.idParams).subscribe((res) => {
+        this.ratingProduct$ = of(res.payload);
+      });
+      this.detailProduct(this.idParams).subscribe((res) => {
+        this.detailProduct$ = of(res.payload);
+        this.overallRating = {
+          rate: res.payload.RatingAVG,
+          number: res.payload.RatingNumber,
+        };
+      });
+    });
+  }
+
   initProduct(id) {
     forkJoin([
       this.detailProduct(id),

@@ -1,0 +1,14 @@
+<div class="rating_wrapper p-5 grid grid-cols-1">
+    <div class="mt-3">
+        <label class="text-black text-opacity-50 text-sm font-semibold">Đặt câu hỏi:</label>
+        <textarea class="bg-gray-50 rounded-lg"
+                  name=""
+                  id=""
+                  [(ngModel)]="content"
+                  rows="10"></textarea>
+    </div>
+    <div class="btn_rating justify-center bg-black h-7 text-white text-center rounded-xl"
+         (click)="sendQuestion()">
+        Gửi
+    </div>
+</div>
