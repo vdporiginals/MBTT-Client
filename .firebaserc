@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "mbtt-7f36d"
+  },
+  "targets": {
+    "mbtt-client": {
+      "hosting": {
+        "MBTT-client": [
+          "mbtt-client"
+        ]
+      }
+    }
   }
 }
