@@ -94,6 +94,7 @@ ngneat-dialog {
   .ngneat-dialog-backdrop {
     // backdrop styles
     .ngneat-dialog-content {
+      overflow: auto;
       // dialog content, where your component/template is placed
       .ngneat-drag-marker {
         // draggable marker
