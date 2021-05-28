@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { SwiperModule } from 'swiper/angular';
 import SwiperCore, {
+  A11y,
+  Autoplay,
+  Controller,
   Navigation,
   Pagination,
   Scrollbar,
-  A11y,
+  Thumbs,
   Virtual,
   Zoom,
-  Autoplay,
-  Thumbs,
-  Controller,
 } from 'swiper/core';
 
 // install Swiper components

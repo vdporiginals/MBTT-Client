@@ -4,7 +4,7 @@ import {
   Component,
   Input,
   NgModule,
-  OnInit,
+  OnInit
 } from '@angular/core';
 
 @Component({

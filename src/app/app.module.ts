@@ -16,7 +16,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     DialogModule.forRoot(),
     AppRoutingModule,
     TransferHttpCacheModule,
-    NgxSsrCacheModule.configLruCache({ maxAge: 10 * 60_000, maxSize: 50 }),
+    NgxSsrCacheModule.configLruCache({ maxAge: 60000, maxSize: 50 }),
   ],
   providers: [
     {

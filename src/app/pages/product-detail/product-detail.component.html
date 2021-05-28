@@ -1,6 +1,6 @@
 <div class="wrapper flex-col">
   <ng-container *ngIf="detailProduct$ | async as detailPro">
-    <div class="header flex flex-col flex-col">
+    <div class="header flex  flex-col">
       <div class="header_carousel flex-none">
         <app-product-carousel *ngIf="!isServer"
                               [imgList]="mediaProduct$ | async">
@@ -46,7 +46,7 @@
       <ng-template #detailCard>
         <div class="flex mt-4 justify-between"
              *ngFor="let data of item.data">
-          <p class="flex-2 text-black text-opacity-50 mr-2">{{data.Label}}</p>
+          <p class="flex-2 text-black text-opacity-50 mr-2">{{data?.Label}}</p>
           <div class="flex-1 font-medium self-end"
                [style.text-align]="data.key !== 'Total' ? 'justify':'right'">
             <ng-container *ngIf="data?.type === 'img' else text">
@@ -60,7 +60,7 @@
                       (click)="onBtnCardClick(btn.link)">{{btn.title}}</button>
             </ng-container>
             <ng-template #text>
-              <p [style.direction]="data.key !== 'Total' ? 'rtl': ''"> {{data[data.key]}}</p>
+              <p [style.direction]="data.key !== 'Total' ? 'rtl': ''"> {{data[data?.key]}}</p>
             </ng-template>
           </div>
         </div>
@@ -118,30 +118,33 @@
       </ng-template>
     </app-card>
   </div>
-  <div class="list_carousel flex-col m-5">
-    <div class="flex items-center">
-      <img src="assets/Folder.svg">
-      <span class="flex-1 pl-3 text-base font-semibold">Sản phẩm khác của doanh nghiệp</span>
-      <img [routerLink]="''"
-           src="assets/Dropdown.svg"
-           alt="">
+  <ng-container *ngIf="relatedProduct$ | async as relatedProduct">
+    <div class="list_carousel flex-col m-5">
+      <div class="flex items-center">
+        <img src="assets/Folder.svg">
+        <span class="flex-1 pl-3 text-base font-semibold">Sản phẩm khác của doanh nghiệp</span>
+        <img [routerLink]="''"
+             src="assets/Dropdown.svg"
+             alt="">
+      </div>
+      <app-product-list-carousel *ngIf="!isServer"
+                                 [producList]="relatedProduct"></app-product-list-carousel>
     </div>
-    <app-product-list-carousel *ngIf="!isServer"
-                               [producList]="relatedProduct$ | async"></app-product-list-carousel>
-  </div>
-  <div [style.padding-bottom.px]="54"
-       class="list_carousel flex-col m-5">
-    <div class="flex items-center">
-      <img src="assets/Folder.svg">
-      <span class="flex-1 pl-3 text-base font-semibold">Sản phẩm liên quan</span>
-      <img [routerLink]="''"
-           src="assets/Dropdown.svg"
-           alt="">
+    <div [style.padding-bottom.px]="54"
+         class="list_carousel flex-col m-5">
+      <div class="flex items-center">
+        <img src="assets/Folder.svg">
+        <span class="flex-1 pl-3 text-base font-semibold">Sản phẩm liên quan</span>
+        <img [routerLink]="''"
+             src="assets/Dropdown.svg"
+             alt="">
+      </div>
+      <app-product-list-carousel *ngIf="!isServer"
+                                 [producList]="relatedProduct">
+      </app-product-list-carousel>
     </div>
-    <app-product-list-carousel *ngIf="!isServer"
-                               [producList]="relatedProduct$ | async">
-    </app-product-list-carousel>
-  </div>
+  </ng-container>
+
 </div>
 <div class="btn_wrap filter blur-xl"></div>
 <button class="button_fix bg-black rounded-3xl z-50 text-white">

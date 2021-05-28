@@ -4,13 +4,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   NgModule,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DialogRef } from '@ngneat/dialog';
 import { BarRatingModule } from 'ngx-bar-rating';
-import { ApiService } from 'src/app/data-access/services/api.service';
 
 @Component({
   selector: 'app-rating-dialog',

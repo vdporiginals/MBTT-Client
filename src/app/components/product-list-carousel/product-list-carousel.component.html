@@ -5,9 +5,16 @@
           <img [src]="img?.MediaURL"
                [routerLink]="['/',img.ProductId]" />
           <h3 class="text-black text-base font-semibold">{{img?.Name}}</h3>
-          <bar-rating [readOnly]="true"
+          <bar-rating *ngIf="img?.RatingAVG else rating"
+                      [readOnly]="true"
                       [theme]="'stars'"
                       [(rate)]="img.RatingAVG"
                       [max]="5"></bar-rating>
+          <ng-template #rating>
+               <bar-rating [readOnly]="true"
+                           [theme]="'stars'"
+                           [(rate)]="ratingAVG"
+                           [max]="5"></bar-rating>
+          </ng-template>
      </ng-template>
 </swiper>

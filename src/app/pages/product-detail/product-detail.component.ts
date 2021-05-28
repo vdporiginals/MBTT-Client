@@ -1,12 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseResponse } from '@consult-indochina/base';
 import { DialogService } from '@ngneat/dialog';
 import { IS_SERVER_PLATFORM } from '@ngx-ssr/platform';
-import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { concatMap, map, takeUntil, tap } from 'rxjs/operators';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { concatMap, map, shareReplay } from 'rxjs/operators';
 import { QuestionModalComponent } from 'src/app/components/question-modal/question-modal.component';
 import { RatingDialogComponent } from 'src/app/components/rating-dialog/rating-dialog.component';
 import { ApiService } from 'src/app/data-access/services/api.service';
@@ -28,7 +27,42 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   numbOfQuestion = 1;
   overall = 5;
   product: any = {};
-  listCard = [];
+  listCard = [
+    {
+      title: 'Thông tin sản phẩm',
+      icon: 'assets/Folder.svg',
+      routeLink: ' ',
+      data: [],
+    },
+    {
+      title: 'Doanh nghiệp sở hữu',
+      icon: 'assets/Work.svg',
+      routeLink: ' ',
+      data: [
+        {
+          key: 'Name',
+          Label: 'Tên:',
+          Name: '',
+        },
+        {
+          key: 'TaxCode',
+          Label: 'MST:',
+          TaxCode: '',
+        },
+        {
+          key: 'Addess',
+          Label: 'Địa chỉ:',
+          Addess: '',
+        },
+      ],
+    },
+    {
+      title: 'Điểm bán',
+      icon: 'assets/Buy.svg',
+      routeLink: '',
+      data: [],
+    },
+  ];
   currentId: Observable<any>;
   destroy$ = new Subject();
   detailProduct$: Observable<Product>;
@@ -46,7 +80,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   idParams;
   constructor(
     @Inject(IS_SERVER_PLATFORM) public isServer: boolean,
-    private http: HttpClient,
     private dialog: DialogService,
     private route: ActivatedRoute,
     private currency: CurrencyPipe,
@@ -81,8 +114,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       this.detailProduct(this.idParams).subscribe((res) => {
         this.detailProduct$ = of(res.payload);
         this.overallRating = {
-          rate: res.payload.RatingAVG,
-          number: res.payload.RatingNumber,
+          rate: res.payload.RatingAVG || 0,
+          number: res.payload.RatingNumber || 0,
         };
       });
     });
@@ -110,20 +143,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   initProduct(id) {
-    if (!this.isServer) {
-      forkJoin([this.getMediaProduct(id), this.companyProduct(id)]).subscribe(
-        ([media, comp]) => {
-          this.mediaProduct$ = of(media.payload);
-          this.relatedProduct$ = this.getRelateProduct(
-            comp.payload.CompanyId
-          ).pipe(map((a) => a.payload));
-        }
-      );
-    }
-
     forkJoin([
       this.detailProduct(id),
       this.companyProduct(id),
+      this.getMediaProduct(id),
       this.getQuestionProduct(id),
       this.getRatingProduct(id),
       this.getListCert(id),
@@ -131,18 +154,30 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       ([
         detailProduct,
         companyProduct,
+        mediaProduct,
         questionProduct,
         ratingProduct,
         certProduct,
       ]) => {
+        if (!this.isServer) {
+          this.getRelateProduct(companyProduct.payload.CompanyId)
+            .pipe(
+              map((a) => a.payload),
+              shareReplay(1)
+            )
+            .subscribe((res) => {
+              this.relatedProduct$ = of(res);
+            });
+        }
+
         this.detailProduct$ = of(detailProduct.payload);
         this.overallRating = {
           rate: detailProduct.payload.RatingAVG,
           number: detailProduct.payload.RatingNumber,
         };
-        this.companyProduct$ = of(companyProduct.payload);
         this.questionProduct$ = of(questionProduct[0]);
         this.answerProduct$ = of(questionProduct[1].payload);
+        this.mediaProduct$ = of(mediaProduct.payload);
         // this.questionProduct$ = of(questionProduct.payload);
         this.ratingProduct$ = of(ratingProduct.payload);
         this.certProduct$ = of(certProduct.payload);
@@ -306,5 +341,5 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  onBtnCardClick(link) {}
+  onBtnCardClick() {}
 }

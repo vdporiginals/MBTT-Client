@@ -4,7 +4,6 @@ import {
   Component,
   Input,
   NgModule,
-  OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -17,11 +16,10 @@ import { SwiperModule } from 'swiper/angular';
   styleUrls: ['./product-list-carousel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListCarouselComponent implements OnInit {
+export class ProductListCarouselComponent {
   @Input() producList: any[];
+  ratingAVG = 0;
   constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 
   routeTo(ev) {
     // window.location.href

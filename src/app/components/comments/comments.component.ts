@@ -1,7 +1,6 @@
-import { Component, Input, NgModule, OnInit, ViewChild } from '@angular/core';
-import { TextFieldModule } from '@angular/cdk/text-field';
+import { CdkTextareaAutosize, TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, Input, NgModule, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { RatingProduct } from 'src/app/models/product.interface';
