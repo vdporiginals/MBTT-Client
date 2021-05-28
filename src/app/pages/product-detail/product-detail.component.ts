@@ -9,6 +9,7 @@ import { concatMap, map, shareReplay } from 'rxjs/operators';
 import { QuestionModalComponent } from 'src/app/components/question-modal/question-modal.component';
 import { RatingDialogComponent } from 'src/app/components/rating-dialog/rating-dialog.component';
 import { ApiService } from 'src/app/data-access/services/api.service';
+import { MetaService } from 'src/app/data-access/services/seo.service';
 import {
   AnswerQuestion,
   Company,
@@ -82,6 +83,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     @Inject(IS_SERVER_PLATFORM) public isServer: boolean,
     private dialog: DialogService,
     private route: ActivatedRoute,
+    private metaService: MetaService,
     private currency: CurrencyPipe,
     private apiService: ApiService
   ) {
@@ -159,6 +161,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         ratingProduct,
         certProduct,
       ]) => {
+        this.metaService.update({
+          title: detailProduct.payload.Name,
+          image: detailProduct.payload.MediaURL,
+          description: detailProduct.payload.Description,
+        });
         if (!this.isServer) {
           this.getRelateProduct(companyProduct.payload.CompanyId)
             .pipe(
@@ -181,6 +188,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         // this.questionProduct$ = of(questionProduct.payload);
         this.ratingProduct$ = of(ratingProduct.payload);
         this.certProduct$ = of(certProduct.payload);
+
         this.listCard.forEach((val, i) => {
           let dataPush;
           if (i == 0) {
