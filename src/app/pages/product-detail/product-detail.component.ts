@@ -1,9 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseResponse } from '@consult-indochina/base';
 import { DialogService } from '@ngneat/dialog';
+import { IS_SERVER_PLATFORM } from '@ngx-ssr/platform';
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { concatMap, map, takeUntil, tap } from 'rxjs/operators';
 import { QuestionModalComponent } from 'src/app/components/question-modal/question-modal.component';
@@ -26,105 +27,8 @@ import {
 export class ProductDetailComponent implements OnInit, OnDestroy {
   numbOfQuestion = 1;
   overall = 5;
-  product: any = {
-    Title: 'Test',
-    American: 'Test',
-    Rating: 5,
-    price: 10000,
-  };
-  listCard = [
-    {
-      title: 'Thông tin sản phẩm',
-      icon: 'assets/Folder.svg',
-      routeLink: ' ',
-      data: [
-        {
-          key: 'Name',
-          Label: 'Tên:',
-          Name: 'Ginger Bear',
-        },
-        {
-          key: 'Price',
-          Label: 'Giá (Niêm Yết):',
-          Price: 1000000,
-        },
-        {
-          key: 'Source',
-          Label: 'Nguồn gốc:',
-          Price: 'Ginger Bear',
-        },
-        {
-          key: 'MediaURL',
-          Label: 'Mã Vạch:',
-          type: 'img',
-          MediaURL: 'assets/group_cert.png',
-        },
-        {
-          key: 'Detail',
-          Label: 'Chi tiết:',
-          Detail:
-            'Sản phẩm Beer Ginger được nhập khẩu trực tiếp từ Hoa Kỳ với thành',
-        },
-        {
-          type: 'btn',
-          btnArray: [
-            {
-              title: 'Xem thêm',
-              link: '',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Doanh nghiệp sở hữu',
-      icon: 'assets/Work.svg',
-      routeLink: ' ',
-      data: [
-        {
-          key: 'Name',
-          Label: 'Tên:',
-          Name: 'C.ty TNHH Sapioso Food & Drink',
-        },
-        {
-          key: 'Mst',
-          Label: 'MST:',
-          Mst: '0120257478953',
-        },
-        {
-          key: 'Addess',
-          Label: 'Địa chỉ:',
-          Addess: 'N03-T7 Ngoại Giao Đoàn, Bắc Từ Liêm, Hà Nội',
-        },
-      ],
-    },
-    {
-      title: 'Điểm bán',
-      icon: 'assets/Buy.svg',
-      routeLink: '',
-      data: [
-        {
-          key: 'Total',
-          Label: 'Số lượng:',
-          Total: '15 Điểm bán',
-        },
-        {
-          key: 'near',
-          Label: 'Gần nhất:',
-          near: 'Cách 500m - Vinmart Hồng Hà',
-        },
-        {
-          type: 'btn',
-          btnArray: [
-            {
-              title: 'Chỉ đường',
-              link: '',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  product: any = {};
+  listCard = [];
   currentId: Observable<any>;
   destroy$ = new Subject();
   detailProduct$: Observable<Product>;
@@ -141,6 +45,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   };
   idParams;
   constructor(
+    @Inject(IS_SERVER_PLATFORM) public isServer: boolean,
     private http: HttpClient,
     private dialog: DialogService,
     private route: ActivatedRoute,
@@ -161,6 +66,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
   }
+
   openQuestionModal() {
     const dialogRef = this.dialog.open(QuestionModalComponent, {
       // height: '100%',
@@ -204,145 +110,132 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   initProduct(id) {
+    if (!this.isServer) {
+      forkJoin([this.getMediaProduct(id), this.companyProduct(id)]).subscribe(
+        ([media, comp]) => {
+          this.mediaProduct$ = of(media.payload);
+          this.relatedProduct$ = this.getRelateProduct(
+            comp.payload.CompanyId
+          ).pipe(map((a) => a.payload));
+        }
+      );
+    }
+
     forkJoin([
       this.detailProduct(id),
       this.companyProduct(id),
-      this.getMediaProduct(id),
       this.getQuestionProduct(id),
       this.getRatingProduct(id),
       this.getListCert(id),
-    ])
-      .pipe(
-        tap(
-          ([
-            detailProduct,
-            companyProduct,
-            mediaProduct,
-            questionProduct,
-            ratingProduct,
-            certProduct,
-          ]) => {
-            this.relatedProduct$ = this.getRelateProduct(
-              companyProduct.payload.CompanyId
-            ).pipe(map((a) => a.payload));
+    ]).subscribe(
+      ([
+        detailProduct,
+        companyProduct,
+        questionProduct,
+        ratingProduct,
+        certProduct,
+      ]) => {
+        this.detailProduct$ = of(detailProduct.payload);
+        this.overallRating = {
+          rate: detailProduct.payload.RatingAVG,
+          number: detailProduct.payload.RatingNumber,
+        };
+        this.companyProduct$ = of(companyProduct.payload);
+        this.questionProduct$ = of(questionProduct[0]);
+        this.answerProduct$ = of(questionProduct[1].payload);
+        // this.questionProduct$ = of(questionProduct.payload);
+        this.ratingProduct$ = of(ratingProduct.payload);
+        this.certProduct$ = of(certProduct.payload);
+        this.listCard.forEach((val, i) => {
+          let dataPush;
+          if (i == 0) {
+            dataPush = [
+              {
+                key: 'Name',
+                Label: 'Tên:',
+                Name: detailProduct.payload.Name,
+              },
+              {
+                key: 'Price',
+                Label: 'Giá (Niêm yết):',
+                Price: this.currency.transform(
+                  detailProduct.payload.Price,
+                  'VND',
+                  'symbol'
+                ),
+              },
+              {
+                key: 'Source',
+                Label: 'Nguồn gốc:',
+                Source: detailProduct.payload.Source,
+              },
+              {
+                key: 'MediaURL',
+                Label: 'Mã Vạch:',
+                type: 'img',
+                MediaURL: detailProduct.payload.MediaURL,
+              },
+              {
+                key: 'Description',
+                Label: 'Chi tiết:',
+                Description: detailProduct.payload.Description,
+              },
+              {
+                type: 'btn',
+                btnArray: [
+                  {
+                    title: 'Xem thêm',
+                    link: '',
+                  },
+                ],
+              },
+            ];
+          } else if (i == 1) {
+            dataPush = [
+              {
+                key: 'Name',
+                Label: 'Tên:',
+                Name: companyProduct.payload.Name,
+              },
+              {
+                key: 'TaxCode',
+                Label: 'MST:',
+                TaxCode: companyProduct.payload.TaxCode,
+              },
+              {
+                key: 'Addess',
+                Label: 'Địa chỉ:',
+                Addess: companyProduct.payload.Address,
+              },
+            ];
+          } else {
+            dataPush = [
+              {
+                key: 'Total',
+                Label: 'Số lượng:',
+                Total: '15 điểm bán',
+              },
+              {
+                key: 'near',
+                Label: 'Gần nhất:',
+                near: 'Cách 500m - Vinmart Hồng Hà',
+              },
+              {
+                type: 'btn',
+                btnArray: [
+                  {
+                    title: 'Chỉ đường',
+                    link: '',
+                  },
+                ],
+              },
+            ];
           }
-        )
-      )
-      .subscribe(
-        ([
-          detailProduct,
-          companyProduct,
-          mediaProduct,
-          questionProduct,
-          ratingProduct,
-          certProduct,
-        ]) => {
-          console.log(questionProduct);
-
-          this.detailProduct$ = of(detailProduct.payload);
-          this.overallRating = {
-            rate: detailProduct.payload.RatingAVG,
-            number: detailProduct.payload.RatingNumber,
-          };
-          this.companyProduct$ = of(companyProduct.payload);
-          this.mediaProduct$ = of(mediaProduct.payload);
-          this.questionProduct$ = of(questionProduct[0]);
-          this.answerProduct$ = of(questionProduct[1].payload);
-          // this.questionProduct$ = of(questionProduct.payload);
-          this.ratingProduct$ = of(ratingProduct.payload);
-          this.certProduct$ = of(certProduct.payload);
-          this.listCard.forEach((val, i) => {
-            let dataPush;
-            if (i == 0) {
-              dataPush = [
-                {
-                  key: 'Name',
-                  Label: 'Tên:',
-                  Name: detailProduct.payload.Name,
-                },
-                {
-                  key: 'Price',
-                  Label: 'Giá (Niêm yết):',
-                  Price: this.currency.transform(
-                    detailProduct.payload.Price,
-                    'VND',
-                    'symbol'
-                  ),
-                },
-                {
-                  key: 'Source',
-                  Label: 'Nguồn gốc:',
-                  Source: detailProduct.payload.Source,
-                },
-                {
-                  key: 'MediaURL',
-                  Label: 'Mã Vạch:',
-                  type: 'img',
-                  MediaURL: detailProduct.payload.MediaURL,
-                },
-                {
-                  key: 'Description',
-                  Label: 'Chi tiết:',
-                  Description: detailProduct.payload.Description,
-                },
-                {
-                  type: 'btn',
-                  btnArray: [
-                    {
-                      title: 'Xem thêm',
-                      link: '',
-                    },
-                  ],
-                },
-              ];
-            } else if (i == 1) {
-              dataPush = [
-                {
-                  key: 'Name',
-                  Label: 'Tên:',
-                  Name: companyProduct.payload.Name,
-                },
-                {
-                  key: 'TaxCode',
-                  Label: 'MST:',
-                  TaxCode: companyProduct.payload.TaxCode,
-                },
-                {
-                  key: 'Addess',
-                  Label: 'Địa chỉ:',
-                  Addess: companyProduct.payload.Address,
-                },
-              ];
-            } else {
-              dataPush = [
-                {
-                  key: 'Total',
-                  Label: 'Số lượng:',
-                  Total: '15 điểm bán',
-                },
-                {
-                  key: 'near',
-                  Label: 'Gần nhất:',
-                  near: 'Cách 500m - Vinmart Hồng Hà',
-                },
-                {
-                  type: 'btn',
-                  btnArray: [
-                    {
-                      title: 'Chỉ đường',
-                      link: '',
-                    },
-                  ],
-                },
-              ];
-            }
-            val.data = dataPush;
-          });
-          this.destroy$.next(true);
-        },
-        (err) => console.log(err),
-        () => console.log('complete')
-      );
+          val.data = dataPush;
+        });
+        this.destroy$.next(true);
+      }
+    );
   }
   detailProduct(productId): Observable<BaseResponse<Product>> {
     return this.apiService.list({
@@ -413,7 +306,5 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  onBtnCardClick(link) {
-    console.log(link);
-  }
+  onBtnCardClick(link) {}
 }

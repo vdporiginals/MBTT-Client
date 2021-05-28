@@ -19,7 +19,6 @@ export class CardStatusComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.statusContent);
   }
 }
 

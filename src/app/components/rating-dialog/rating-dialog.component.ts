@@ -26,7 +26,6 @@ export class RatingDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   sendRating() {
-    console.log(this.ref.data);
 
     let data = {
       ProductId: +this.ref.data.id,

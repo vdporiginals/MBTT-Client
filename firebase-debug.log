@@ -1,0 +1,62 @@
+[debug] [2021-05-28T04:16:02.468Z] ----------------------------------------------------------------------
+[debug] [2021-05-28T04:16:02.470Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\phuongdev\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-05-28T04:16:02.470Z] CLI Version:   9.10.0
+[debug] [2021-05-28T04:16:02.471Z] Platform:      win32
+[debug] [2021-05-28T04:16:02.471Z] Node Version:  v14.15.0
+[debug] [2021-05-28T04:16:02.472Z] Time:          Fri May 28 2021 11:16:02 GMT+0700 (Indochina Time)
+[debug] [2021-05-28T04:16:02.472Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-05-28T04:16:02.477Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-28T04:16:02.477Z] > authorizing via signed-in user (cdh271294@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\phuong-ci\MBTT-client
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using mbtt-7f36d. 
+[debug] [2021-05-28T04:16:16.649Z] > refreshing access token with scopes: []
+[debug] [2021-05-28T04:16:16.649Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-28T04:16:16.895Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Fri, 28 May 2021 04:16:15 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-28T04:16:16.905Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/mbtt-7f36d [none]
+[debug] [2021-05-28T04:16:17.704Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/mbtt-7f36d 200
+[debug] [2021-05-28T04:16:17.704Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/mbtt-7f36d {"projectId":"mbtt-7f36d","projectNumber":"296075214791","displayName":"mbtt","name":"projects/mbtt-7f36d","resources":{"hostingSite":"mbtt-7f36d"},"state":"ACTIVE"}
+[info] 
+=== Functions Setup
+[info] 
+[info] A functions directory will be created in your project with a Node.js
+[info] package pre-configured. Functions can be deployed with firebase deploy.
+[info] 
+[debug] [2021-05-28T04:16:17.709Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-28T04:16:17.709Z] > authorizing via signed-in user (cdh271294@gmail.com)
+[debug] [2021-05-28T04:16:17.710Z] [iam] checking project mbtt-7f36d for permissions ["firebase.projects.get"]
+[debug] [2021-05-28T04:16:17.711Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-05-28T04:16:17.711Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-28T04:16:18.618Z] <<< HTTP RESPONSE 200 {"date":"Fri, 28 May 2021 04:16:16 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-28T04:16:18.631Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/mbtt-7f36d:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-05-28T04:16:19.641Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 28 May 2021 04:16:17 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=840","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-28T04:16:19.644Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/mbtt-7f36d/services/cloudfunctions.googleapis.com:enable  
+ 
+[debug] [2021-05-28T04:16:19.645Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/mbtt-7f36d/services/runtimeconfig.googleapis.com:enable  
+ 
+[debug] [2021-05-28T04:16:20.962Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 28 May 2021 04:16:19 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-28T04:16:20.974Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 28 May 2021 04:16:19 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}

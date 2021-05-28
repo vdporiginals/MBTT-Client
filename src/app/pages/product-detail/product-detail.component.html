@@ -2,7 +2,8 @@
   <ng-container *ngIf="detailProduct$ | async as detailPro">
     <div class="header flex flex-col flex-col">
       <div class="header_carousel flex-none">
-        <app-product-carousel [imgList]="mediaProduct$ | async">
+        <app-product-carousel *ngIf="!isServer"
+                              [imgList]="mediaProduct$ | async">
         </app-product-carousel>
       </div>
       <div class="text-left text-2xl font-bold pl-3">
@@ -125,7 +126,8 @@
            src="assets/Dropdown.svg"
            alt="">
     </div>
-    <app-product-list-carousel [producList]="relatedProduct$ | async"></app-product-list-carousel>
+    <app-product-list-carousel *ngIf="!isServer"
+                               [producList]="relatedProduct$ | async"></app-product-list-carousel>
   </div>
   <div [style.padding-bottom.px]="54"
        class="list_carousel flex-col m-5">
@@ -136,7 +138,8 @@
            src="assets/Dropdown.svg"
            alt="">
     </div>
-    <app-product-list-carousel [producList]="relatedProduct$ | async">
+    <app-product-list-carousel *ngIf="!isServer"
+                               [producList]="relatedProduct$ | async">
     </app-product-list-carousel>
   </div>
 </div>

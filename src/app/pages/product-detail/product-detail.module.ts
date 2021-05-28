@@ -24,6 +24,6 @@ import { productDetailRoutes } from './product-detail.routes';
     QuestionsModule,
     CardStatusModule,
   ],
-  providers: [CurrencyPipe]
+  providers: [CurrencyPipe],
 })
 export class ProductDetailModule {}
